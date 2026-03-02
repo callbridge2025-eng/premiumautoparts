@@ -1,4 +1,44 @@
+body {
+  font-family: 'Segoe UI', sans-serif;
+}
+
+.navbar {
+  padding: 15px 0;
+}
+
 .hero-section {
-    background: url('https://images.unsplash.com/photo-1581091215367-59ab6b2c4b99') center/cover no-repeat;
-    height: 80vh;
+  background: linear-gradient(rgba(0,0,0,0.75), rgba(0,0,0,0.75)),
+              url('https://images.unsplash.com/photo-1605559424843-9e4c228a3a6c') center/cover no-repeat;
+  height: 85vh;
+  display: flex;
+  align-items: center;
+}
+
+.section-padding {
+  padding: 70px 0;
+}
+
+.section-title {
+  font-weight: 700;
+  margin-bottom: 30px;
+}
+
+.footer {
+  background: #111;
+  color: #ccc;
+  padding: 40px 0;
+}
+
+.footer a {
+  color: #ccc;
+  text-decoration: none;
+}
+
+.footer a:hover {
+  color: #fff;
+}
+
+.card-hover:hover {
+  transform: translateY(-5px);
+  transition: 0.3s;
 }
