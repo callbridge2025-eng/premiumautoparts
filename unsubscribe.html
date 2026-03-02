@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Unsubscribe - Premium Auto Parts</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="container text-center mt-5">
+
+<h2>Unsubscribe from Emails</h2>
+<p>Enter your email to unsubscribe.</p>
+
+<form id="unsubscribeForm" class="row justify-content-center mt-4">
+  <div class="col-md-4">
+    <input type="email" id="unsubscribeEmail" class="form-control" required placeholder="Enter your email">
+  </div>
+  <div class="col-md-2">
+    <button type="submit" class="btn btn-danger w-100">Unsubscribe</button>
+  </div>
+</form>
+
+<div id="unsubscribeMessage" class="mt-3"></div>
+
+<script>
+document.getElementById("unsubscribeForm").addEventListener("submit", async function(e) {
+  e.preventDefault();
+
+  const email = document.getElementById("unsubscribeEmail").value.trim();
+  const messageDiv = document.getElementById("unsubscribeMessage");
+
+  const response = await fetch("/api/unsubscribe", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({ email })
+  });
+
+  const data = await response.json();
+
+  messageDiv.innerHTML = `
+    <div class="alert alert-info">
+      ${data.message}
+    </div>
+  `;
+});
+</script>
+
+</body>
+</html>
