@@ -1,6 +1,7 @@
 document.addEventListener("DOMContentLoaded", function () {
 
   const form = document.getElementById("subscribeForm");
+  const messageDiv = document.getElementById("subscribeMessage");
 
   if (!form) return;
 
@@ -10,11 +11,16 @@ document.addEventListener("DOMContentLoaded", function () {
     const emailInput = document.getElementById("email");
     const email = emailInput.value.trim();
 
-    // Basic email validation
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
+    messageDiv.innerHTML = "";
+
     if (!emailRegex.test(email)) {
-      alert("Please enter a valid email address.");
+      messageDiv.innerHTML = `
+        <div class="alert alert-danger">
+          Please enter a valid email address.
+        </div>
+      `;
       return;
     }
 
@@ -30,15 +36,26 @@ document.addEventListener("DOMContentLoaded", function () {
       const data = await response.json();
 
       if (response.ok) {
-        alert(data.message);
+        messageDiv.innerHTML = `
+          <div class="alert alert-success">
+            ${data.message}
+          </div>
+        `;
         emailInput.value = "";
       } else {
-        alert(data.message || "Something went wrong.");
+        messageDiv.innerHTML = `
+          <div class="alert alert-danger">
+            ${data.message || "Something went wrong."}
+          </div>
+        `;
       }
 
     } catch (error) {
-      console.error("Subscription error:", error);
-      alert("Server error. Please try again later.");
+      messageDiv.innerHTML = `
+        <div class="alert alert-danger">
+          Server error. Please try again later.
+        </div>
+      `;
     }
   });
 
