@@ -19,6 +19,20 @@ export default async function handler(req, res) {
 
     const sheets = google.sheets({ version: "v4", auth });
 
+    // Get existing emails
+    const read = await sheets.spreadsheets.values.get({
+      spreadsheetId: process.env.SHEET_ID,
+      range: "Sheet1!A:A",
+    });
+
+    const rows = read.data.values || [];
+    const existingEmails = rows.flat();
+
+    if (existingEmails.includes(email)) {
+      return res.status(200).json({ message: "Email already subscribed." });
+    }
+
+    // Append new email
     await sheets.spreadsheets.values.append({
       spreadsheetId: process.env.SHEET_ID,
       range: "Sheet1!A:C",
@@ -28,7 +42,7 @@ export default async function handler(req, res) {
       },
     });
 
-    return res.status(200).json({ message: "Subscribed successfully" });
+    return res.status(200).json({ message: "Subscribed successfully." });
 
   } catch (error) {
     return res.status(500).json({
