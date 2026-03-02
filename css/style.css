@@ -46,3 +46,11 @@ body {
   height: 180px;
   object-fit: cover;
 }
+
+.navbar {
+  min-height: 70px;
+}
+
+.navbar-brand {
+  font-size: 1.5rem;
+}
